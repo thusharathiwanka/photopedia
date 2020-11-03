@@ -4,10 +4,12 @@ const searchForm = document.querySelector(".search-form");
 const searchInput = document.querySelector(".search-input");
 const submitBtn = document.querySelector(".submit-btn");
 const loadMore = document.querySelector(".more");
+const featuredBtns = document.querySelectorAll(".featured button");
 let searchValue;
 let page = 1;
 let fetchLink;
 let currentSearch;
+let featured;
 
 searchInput.addEventListener("input", updateSearchInput);
 
@@ -18,6 +20,14 @@ searchForm.addEventListener("submit", (event) => {
 });
 
 loadMore.addEventListener("click", loadMorePhotos);
+
+featuredBtns.forEach((btn) => {
+  btn.addEventListener("click", (event) => {
+    featured = event.target.value;
+    searchInput.value = featured;
+    searchPhotos(featured);
+  });
+});
 
 async function fetchAPI(url) {
   const dataFetch = await fetch(url, {
@@ -49,6 +59,8 @@ async function loadMorePhotos() {
   page++;
   if (currentSearch) {
     fetchLink = `https://api.pexels.com/v1/search?query=${currentSearch}&per_page=20&page=${page}`;
+  } else if (featured) {
+    fetchLink = `https://api.pexels.com/v1/search?query=${featured}&per_page=20&page=${page}`;
   } else {
     fetchLink = `https://api.pexels.com/v1/curated?per_page=20&page=${page}`;
   }
@@ -64,11 +76,12 @@ function generatePhotos(data) {
   data.photos.forEach((photo) => {
     const galleryImg = document.createElement("div");
     galleryImg.classList.add("gallery-img");
-    galleryImg.innerHTML = `<img src="${photo.src.large}">
-    <div class="gallery-img-info">
-      <a href="${photo.photographer_url}" target="blank""><p>${photo.photographer}</p></a>
-      <a href="${photo.src.original}" target="blank" id="download"><i class="fas fa-arrow-down"></i></a>
-    </div>`;
+    const galleryImageInfo = document.createElement("div");
+    galleryImageInfo.classList.add("gallery-img-info");
+    galleryImageInfo.innerHTML = `<a href="${photo.photographer_url}" target="blank""><p>${photo.photographer}</p></a>
+      <a href="${photo.src.original}" target="blank" id="download"><i class="fas fa-arrow-down"></i></a>`;
+    galleryImg.innerHTML = `<img src="${photo.src.large}">`;
+    galleryImg.appendChild(galleryImageInfo);
     gallery.appendChild(galleryImg);
   });
 }

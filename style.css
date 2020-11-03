@@ -45,10 +45,10 @@ header h2 {
   border: none;
   outline: none;
   border-radius: 0.2rem;
-  margin: 0 2rem;
 }
 
 .search-form {
+  margin: 0 2rem;
   position: relative;
 }
 
@@ -84,8 +84,7 @@ header h2 {
 }
 
 .gallery-img {
-  height: 70vh;
-  overflow: hidden;
+  height: 60vh;
   border-radius: 0.5rem;
 }
 
@@ -120,7 +119,8 @@ header h2 {
   text-align: center;
 }
 
-.more {
+.more,
+.featured button {
   font-family: "Montserrat", sans-serif;
   font-size: 1.2rem;
   outline: none;
@@ -130,4 +130,17 @@ header h2 {
   color: white;
   border-radius: 0.2rem;
   cursor: pointer;
+}
+
+.featured button {
+  margin: 1rem;
+  background: #303236;
+  font-size: 1rem;
+}
+
+.featured {
+  height: 9vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
