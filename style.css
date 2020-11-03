@@ -84,7 +84,7 @@ header h2 {
 }
 
 .gallery-img {
-  overflow: hidden;
+  height: 65vh;
 }
 
 .gallery-img img {
@@ -92,6 +92,7 @@ header h2 {
   height: 100%;
   object-fit: cover;
   transition: all 0.5s ease-in-out;
+  border-radius: 0.5rem;
 }
 
 .gallery-img img:hover {
@@ -103,6 +104,10 @@ header h2 {
 }
 
 .gallery-img-info a {
+  color: white;
+}
+
+#download {
   color: white;
   font-size: 1.2rem;
   background: #4c81d1;
