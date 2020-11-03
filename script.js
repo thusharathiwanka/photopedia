@@ -25,10 +25,6 @@ async function fetchAPI(url) {
   return data;
 }
 
-function updateSearchInput(event) {
-  searchValue = event.target.value;
-}
-
 async function curatedPhotos() {
   const data = await fetchAPI("https://api.pexels.com/v1/curated?per_page=15");
   generatePhotos(data);
@@ -38,7 +34,12 @@ async function searchPhotos(searchInput) {
   const data = await fetchAPI(
     `https://api.pexels.com/v1/search?query=${searchInput}&per_page=15`
   );
+  clearGallery();
   generatePhotos(data);
+}
+
+function updateSearchInput(event) {
+  searchValue = event.target.value;
 }
 
 function generatePhotos(data) {
@@ -49,6 +50,10 @@ function generatePhotos(data) {
     <p>${photo.photographer}</p>`;
     gallery.appendChild(galleryImg);
   });
+}
+
+function clearGallery() {
+  gallery.innerHTML = "";
 }
 
 curatedPhotos();
