@@ -84,7 +84,9 @@ header h2 {
 }
 
 .gallery-img {
-  height: 65vh;
+  height: 70vh;
+  overflow: hidden;
+  border-radius: 0.5rem;
 }
 
 .gallery-img img {
@@ -92,7 +94,6 @@ header h2 {
   height: 100%;
   object-fit: cover;
   transition: all 0.5s ease-in-out;
-  border-radius: 0.5rem;
 }
 
 .gallery-img img:hover {
@@ -117,4 +118,16 @@ header h2 {
 
 .nav-more {
   text-align: center;
+}
+
+.more {
+  font-family: "Montserrat", sans-serif;
+  font-size: 1.2rem;
+  outline: none;
+  border: none;
+  padding: 0.5rem 1rem;
+  background: #4c81d1;
+  color: white;
+  border-radius: 0.2rem;
+  cursor: pointer;
 }

@@ -14,7 +14,7 @@ searchInput.addEventListener("input", updateSearchInput);
 searchForm.addEventListener("submit", (event) => {
   event.preventDefault();
   currentSearch = searchValue;
-  searchPhotos(currentSearch);
+  searchPhotos(searchValue);
 });
 
 loadMore.addEventListener("click", loadMorePhotos);
