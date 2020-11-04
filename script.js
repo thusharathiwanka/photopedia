@@ -61,9 +61,9 @@ async function loadMorePhotos() {
   if (currentSearch) {
     fetchLink = `https://api.pexels.com/v1/search?query=${currentSearch}&per_page=18&page=${page}`;
   } else if (featured) {
-    fetchLink = `https://api.pexels.com/v1/search?query=${featured}&per_page=20&page=${page}`;
+    fetchLink = `https://api.pexels.com/v1/search?query=${featured}&per_page=18&page=${page}`;
   } else {
-    fetchLink = `https://api.pexels.com/v1/curated?per_page=20&page=${page}`;
+    fetchLink = `https://api.pexels.com/v1/curated?per_page=18&page=${page}`;
   }
   const data = await fetchAPI(fetchLink);
   generatePhotos(data);
