@@ -70,7 +70,7 @@ header h2 {
 
 .gallery {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   padding: 2rem 1rem;
   row-gap: 5rem;
   column-gap: 2rem;
@@ -87,8 +87,9 @@ header h2 {
 .gallery-img {
   border-radius: 0.5rem;
   overflow: hidden;
-  height: 65vh;
+  height: 50vh;
   position: relative;
+  transition: all 0.5s ease-in-out;
 }
 
 .image-darker {
@@ -107,10 +108,6 @@ header h2 {
   height: 100%;
   object-fit: cover;
   transition: all 0.5s ease-in-out;
-}
-
-.gallery-img img:hover {
-  transform: scale(1.2);
 }
 
 .gallery-img-info p {
@@ -146,6 +143,10 @@ header h2 {
   cursor: pointer;
 }
 
+.more {
+  margin-bottom: 2rem;
+}
+
 .featured button {
   margin: 1rem;
   background: #303236;
@@ -164,6 +165,10 @@ header h2 {
   .search-input {
     width: 30rem;
   }
+
+  .featured {
+    display: none;
+  }
 }
 
 @media screen and (max-width: 600px) {
@@ -172,8 +177,24 @@ header h2 {
   }
 }
 
-@media screen and (max-width: 900px) {
-  .featured {
-    display: none;
+@media screen and (max-width: 450px) {
+  .search-input {
+    width: 22rem;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .search-input {
+    width: 18rem;
+  }
+
+  .gallery {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
+}
+
+@media screen and (max-width: 300px) {
+  .search-input {
+    width: 15rem;
   }
 }
