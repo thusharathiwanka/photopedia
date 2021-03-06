@@ -91,11 +91,13 @@ function generatePhotos(data) {
     galleryImg.addEventListener("mouseover", () => {
       galleryImageInfo.style.transform = "translateY(-5rem)";
       imageDarker.style.opacity = "0.3";
+      galleryImg.style.transform = "scale(1.02)";
     });
 
     galleryImg.addEventListener("mouseleave", () => {
       galleryImageInfo.style.transform = "translateY(0)";
       imageDarker.style.opacity = "0";
+      galleryImg.style.transform = "scale(1)";
     });
   });
 }

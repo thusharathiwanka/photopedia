@@ -100,7 +100,7 @@ header h2 {
   left: 0;
   background: black;
   opacity: 0;
-  transition: all 0.5s ease-in-out;
+  transition: all 0.3s ease-in-out;
 }
 
 .gallery-img img {
