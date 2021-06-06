@@ -1,4 +1,4 @@
-const apiKey = "563492ad6f91700001000001c768832b78b547eb9e8a086034e76994";
+import { apiKey } from "./config.js";
 const gallery = document.querySelector(".gallery");
 const searchForm = document.querySelector(".search-form");
 const searchInput = document.querySelector(".search-input");
@@ -15,95 +15,95 @@ let featured;
 searchInput.addEventListener("input", updateSearchInput);
 
 searchForm.addEventListener("submit", (event) => {
-  event.preventDefault();
-  currentSearch = searchValue;
-  searchPhotos(searchValue);
+	event.preventDefault();
+	currentSearch = searchValue;
+	searchPhotos(searchValue);
 });
 
 loadMore.addEventListener("click", loadMorePhotos);
 
 featuredBtns.forEach((btn) => {
-  btn.addEventListener("click", (event) => {
-    featured = event.target.value;
-    searchInput.value = featured;
-    searchPhotos(featured);
-  });
+	btn.addEventListener("click", (event) => {
+		featured = event.target.value;
+		searchInput.value = featured;
+		searchPhotos(featured);
+	});
 });
 
 async function fetchAPI(url) {
-  const dataFetch = await fetch(url, {
-    method: "GET",
-    headers: {
-      Accept: "application/json",
-      Authorization: apiKey,
-    },
-  });
-  const data = await dataFetch.json();
+	const dataFetch = await fetch(url, {
+		method: "GET",
+		headers: {
+			Accept: "application/json",
+			Authorization: apiKey,
+		},
+	});
+	const data = await dataFetch.json();
 
-  return data;
+	return data;
 }
 
 async function curatedPhotos() {
-  fetchLink = "https://api.pexels.com/v1/curated?per_page=20&page=1";
-  const data = await fetchAPI(fetchLink);
-  generatePhotos(data);
+	fetchLink = "https://api.pexels.com/v1/curated?per_page=20&page=1";
+	const data = await fetchAPI(fetchLink);
+	generatePhotos(data);
 }
 
 async function searchPhotos(searchInput) {
-  fetchLink = `https://api.pexels.com/v1/search?query=${searchInput}&per_page=20&page=1`;
-  const data = await fetchAPI(fetchLink);
-  clearGallery();
-  generatePhotos(data);
+	fetchLink = `https://api.pexels.com/v1/search?query=${searchInput}&per_page=20&page=1`;
+	const data = await fetchAPI(fetchLink);
+	clearGallery();
+	generatePhotos(data);
 }
 
 async function loadMorePhotos() {
-  page++;
-  if (currentSearch) {
-    fetchLink = `https://api.pexels.com/v1/search?query=${currentSearch}&per_page=20&page=${page}`;
-  } else if (featured) {
-    fetchLink = `https://api.pexels.com/v1/search?query=${featured}&per_page=20&page=${page}`;
-  } else {
-    fetchLink = `https://api.pexels.com/v1/curated?per_page=20&page=${page}`;
-  }
-  const data = await fetchAPI(fetchLink);
-  generatePhotos(data);
+	page++;
+	if (currentSearch) {
+		fetchLink = `https://api.pexels.com/v1/search?query=${currentSearch}&per_page=20&page=${page}`;
+	} else if (featured) {
+		fetchLink = `https://api.pexels.com/v1/search?query=${featured}&per_page=20&page=${page}`;
+	} else {
+		fetchLink = `https://api.pexels.com/v1/curated?per_page=20&page=${page}`;
+	}
+	const data = await fetchAPI(fetchLink);
+	generatePhotos(data);
 }
 
 function updateSearchInput(event) {
-  searchValue = event.target.value;
+	searchValue = event.target.value;
 }
 
 function generatePhotos(data) {
-  data.photos.forEach((photo) => {
-    const galleryImg = document.createElement("div");
-    galleryImg.classList.add("gallery-img");
-    const galleryImageInfo = document.createElement("div");
-    galleryImageInfo.classList.add("gallery-img-info");
-    galleryImageInfo.innerHTML = `<a href="${photo.photographer_url}" target="blank""><p>${photo.photographer}</p></a>
+	data.photos.forEach((photo) => {
+		const galleryImg = document.createElement("div");
+		galleryImg.classList.add("gallery-img");
+		const galleryImageInfo = document.createElement("div");
+		galleryImageInfo.classList.add("gallery-img-info");
+		galleryImageInfo.innerHTML = `<a href="${photo.photographer_url}" target="blank""><p>${photo.photographer}</p></a>
       <a href="${photo.src.original}" target="blank" id="download"><i class="fas fa-arrow-down"></i></a>`;
-    galleryImg.innerHTML = `<img src="${photo.src.large}">`;
-    const imageDarker = document.createElement("div");
-    imageDarker.classList.add("image-darker");
-    galleryImg.appendChild(imageDarker);
-    galleryImg.appendChild(galleryImageInfo);
-    gallery.appendChild(galleryImg);
+		galleryImg.innerHTML = `<img src="${photo.src.large}">`;
+		const imageDarker = document.createElement("div");
+		imageDarker.classList.add("image-darker");
+		galleryImg.appendChild(imageDarker);
+		galleryImg.appendChild(galleryImageInfo);
+		gallery.appendChild(galleryImg);
 
-    galleryImg.addEventListener("mouseover", () => {
-      galleryImageInfo.style.transform = "translateY(-5rem)";
-      imageDarker.style.opacity = "0.3";
-      galleryImg.style.transform = "scale(1.02)";
-    });
+		galleryImg.addEventListener("mouseover", () => {
+			galleryImageInfo.style.transform = "translateY(-5rem)";
+			imageDarker.style.opacity = "0.3";
+			galleryImg.style.transform = "scale(1.02)";
+		});
 
-    galleryImg.addEventListener("mouseleave", () => {
-      galleryImageInfo.style.transform = "translateY(0)";
-      imageDarker.style.opacity = "0";
-      galleryImg.style.transform = "scale(1)";
-    });
-  });
+		galleryImg.addEventListener("mouseleave", () => {
+			galleryImageInfo.style.transform = "translateY(0)";
+			imageDarker.style.opacity = "0";
+			galleryImg.style.transform = "scale(1)";
+		});
+	});
 }
 
 function clearGallery() {
-  gallery.innerHTML = "";
+	gallery.innerHTML = "";
 }
 
 curatedPhotos();
